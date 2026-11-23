@@ -1,0 +1,31 @@
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/.vs/
+/.idea/
+*.csproj
+*.sln
+*.slnx
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+*.apk
+*.aab
+*.unitypackage
+
+# Secrets: Agora App ID / token live here. Never commit (folder and its .meta file)
+/Assets/_Project/Secrets/
+/Assets/_Project/Secrets.meta
+
+# Android build intermediates (CMake / ninja)
+/.utmp/
+
+# Editor-only test scratch
+/Assets/_Temp/
+/Assets/_Temp.meta

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713a21c5ad290664f8f32408005d1f65, type: 3}
+  m_Name: Peridot Round
+  m_EditorClassIdentifier: Assembly-CSharp::GemStore.Showcase.GemData
+  id: gem_peridot_round
+  displayName: Peridot Round
+  shape: 0
+  gemColor: 2
+  tint: {r: 0.05, g: 0.72, b: 0.32, a: 1}
+  price: 9500
+  description: Fresh spring-green peridot with a lively sparkle and a soft inner light.

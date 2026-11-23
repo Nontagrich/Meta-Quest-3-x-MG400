@@ -1,0 +1,4 @@
+<linker>
+  <!-- MQTTnet is used through async/generic APIs; keep it whole so IL2CPP (Quest build) does not strip it. -->
+  <assembly fullname="MQTTnet" preserve="all"/>
+</linker>

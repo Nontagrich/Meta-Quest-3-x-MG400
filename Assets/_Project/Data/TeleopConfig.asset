@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225cf83b03ef3b249a9aeb02ca3e328e, type: 3}
+  m_Name: TeleopConfig
+  m_EditorClassIdentifier: Assembly-CSharp::GemStore.Teleop.TeleopConfig
+  p0: {x: 200, y: 0, z: 0}
+  p1: {x: 300, y: 0, z: 0}
+  p2: {x: 200, y: 100, z: 0}
+  xMin: 100
+  xMax: 400
+  yMin: -150
+  yMax: 150
+  zMin: 0
+  zMax: 150
+  sendRateHz: 10
+  minMoveMm: 5
+  smoothingTime: 0.15
+  maxSpeedMmPerSec: 100
