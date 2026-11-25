@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 using System.Text;
 using GemStore.Customize;
 using GemStore.Payment;
@@ -12,7 +13,7 @@ namespace GemStore.Network
     /// Sends every paid order to the robot over <see cref="RobotLink"/> and makes sure none is lost:
     /// orders wait in a queue (also saved to disk) until the robot is connected, and each one is resent every
     /// <see cref="ackTimeoutSeconds"/> until {"type":"ack","orderId":"..."} arrives (max <see cref="maxAttempts"/> tries per connection).
-    /// Message: {"type":"order","orderId":"1234","items":[{"gemId":"gem_ruby_round","shape":"round","color":"red","setting":"ring","metal":"gold"}]}
+    /// Message: {"type":"order","orderId":"1234","createdAt":1700000000,"items":[{"gemId":"gem_ruby_round","slot":1,"shape":"round","color":"red","setting":"ring","metal":"gold"}]}
     /// </summary>
     [DisallowMultipleComponent]
     public class OrderSender : MonoBehaviour
@@ -180,7 +181,10 @@ namespace GemStore.Network
         public static string BuildJson(Order order)
         {
             var sb = new StringBuilder();
-            sb.Append("{\"type\":\"order\",\"orderId\":\"").Append(Escape(order.orderId)).Append("\",\"items\":[");
+            // createdAt (unix seconds) lets the robot server reject orders that waited too long (for example after a restart)
+            long createdAt = order.time == default ? DateTimeOffset.UtcNow.ToUnixTimeSeconds() : new DateTimeOffset(order.time).ToUnixTimeSeconds();
+            sb.Append("{\"type\":\"order\",\"orderId\":\"").Append(Escape(order.orderId))
+              .Append("\",\"createdAt\":").Append(createdAt.ToString(CultureInfo.InvariantCulture)).Append(",\"items\":[");
             for (int i = 0; i < order.items.Count; i++)
             {
                 OrderItem item = order.items[i];
@@ -189,8 +193,14 @@ namespace GemStore.Network
                     sb.Append(',');
                 }
 
+                if (item.slot < 1 || item.slot > 9)
+                {
+                    Debug.LogError($"[Robot] Order {order.orderId}: gem '{item.gemId}' is not in a cabinet slot (slot {item.slot}); the robot will reject it.");
+                }
+
                 sb.Append("{\"gemId\":\"").Append(Escape(item.gemId))
-                  .Append("\",\"shape\":\"").Append(item.shape.ToString().ToLowerInvariant())
+                  .Append("\",\"slot\":").Append(item.slot.ToString(CultureInfo.InvariantCulture))
+                  .Append(",\"shape\":\"").Append(item.shape.ToString().ToLowerInvariant())
                   .Append("\",\"color\":\"").Append(item.color.ToString().ToLowerInvariant())
                   .Append("\",\"setting\":\"").Append(JewelryNames.Wire(item.setting))
                   .Append("\",\"metal\":\"").Append(JewelryNames.Wire(item.metal, item.setting))

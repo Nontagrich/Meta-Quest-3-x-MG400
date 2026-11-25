@@ -1,0 +1,46 @@
+{
+  "_comment": "All poses are x, y, z (mm) and r (deg), read in DobotStudio with User Frame 1 / Tool Frame 1. See README.md for every field.",
+
+  "robot_ip": "192.168.1.6",
+  "dashboard_port": 29999,
+  "motion_port": 30003,
+  "user_frame": 1,
+  "tool_frame": 1,
+  "inline_frame_args": false,
+
+  "speed_percent": 20,
+  "acc_percent": 10,
+  "safe_z": 160.0,
+  "pick_approach_z": 50.0,
+
+  "pick_poses": {
+    "1": [-114.20, 263.20, -19.60, -16.04],
+    "2": [-113.32, 303.00, -19.60, -12.10],
+    "3": [-112.16, 338.15, -19.60, -17.01],
+    "4": [-148.15, 266.61, -19.60, -11.33],
+    "5": [-154.45, 306.39, -19.60, -5.97],
+    "6": [-154.92, 339.21, -19.60, -3.28],
+    "7": [-194.18, 262.76, -19.60, -4.22],
+    "8": [-193.73, 301.80, -19.60, -0.76],
+    "9": [-195.57, 340.97, -19.60, 2.32]
+  },
+  "drop_pose": [5.36, 32.36, 90.58, -53.26],
+
+  "safe_pose_note": "DEFAULT - replace with a taught pose (centre of the 9 pick poses at safe_z, R of pick 5)",
+  "safe_pose": [-153.80, 302.88, 160.0, -5.97],
+
+  "vacuum_do": 9,
+  "blow_do": 10,
+  "vacuum_pulse_s": 0.5,
+  "release_pulse_s": 0.5,
+
+  "limits": {
+    "_comment": "z_min = lowest pick/drop z - 5, z_max = safe_z + 50. Any target outside is refused.",
+    "z_min": -24.60,
+    "z_max": 210.0
+  },
+
+  "arrive_tol_mm": 1.0,
+  "arrive_tol_deg": 1.0,
+  "move_timeout_s": 60
+}

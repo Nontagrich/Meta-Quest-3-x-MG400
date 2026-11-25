@@ -1,0 +1,3 @@
+# CPE494 bridge server -- optional extras (core server runs with none of these)
+paho-mqtt>=1.6        # staff-call notification over broker.hivemq.com
+sounddevice>=0.4.6   # live voice relay (staff mic <-> Unity buyer headset)

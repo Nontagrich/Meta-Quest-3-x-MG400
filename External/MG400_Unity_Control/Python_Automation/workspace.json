@@ -1,0 +1,45 @@
+{
+  "_status": "TEMPORARY - computed, not measured. Replace corners/parkXY/dropZone with measured values.",
+  "_corners_note": "TEMPORARY - computed, not measured: smallest enclosing rectangle of the pick poses + 25.0 mm margin.",
+  "corners": [
+    [
+      -221.0,
+      238.0
+    ],
+    [
+      -89.0,
+      238.0
+    ],
+    [
+      -89.0,
+      366.0
+    ],
+    [
+      -221.0,
+      366.0
+    ]
+  ],
+  "_park_note": "TEMPORARY - computed, not measured: polygon centre.",
+  "parkXY": [
+    -155.0,
+    302.0
+  ],
+  "minRadius": 220.0,
+  "maxRadius": 440.0,
+  "dropZone": {
+    "_note": "TEMPORARY - computed, not measured. Drop pose is fixed (cannot be moved); W is computed.",
+    "centerXY": [
+      5.36,
+      32.36
+    ],
+    "radius": 30.0,
+    "dropZ": 90.58,
+    "minZ": 85.58,
+    "safeZ": 152.03,
+    "maxSpeedPct": 10,
+    "waypointW": [
+      -96.18,
+      244.96
+    ]
+  }
+}

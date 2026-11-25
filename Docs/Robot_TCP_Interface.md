@@ -28,12 +28,14 @@ Every message has a `"type"` field. Unknown types are ignored (Unity logs a warn
 ### order — Unity → robot
 Sent after the customer paid.
 ```json
-{"type":"order","orderId":"1234","items":[{"gemId":"gem_ruby_round","shape":"round","color":"red","setting":"ring","metal":"gold"}]}
+{"type":"order","orderId":"1234","createdAt":1700000000,"items":[{"gemId":"gem_ruby_round","slot":1,"shape":"round","color":"red","setting":"ring","metal":"gold"}]}
 ```
 | Field | Description |
 |---|---|
 | `orderId` | 4-digit string `"1000"`–`"9999"` |
 | `items` | 1–9 gems to pick |
+| `createdAt` | unix seconds (UTC) when the order was paid. A robot may reject orders that waited too long (`robot_server.py`: 10 min). Optional for older apps |
+| `items[].slot` | cabinet slot **1..9** (Unity `Slot_0..Slot_8` + 1) = the physical pick pose number (`gem_picker.py pick N`). Required by `robot_server.py` |
 | `items[].gemId` | see the catalogue below |
 | `items[].shape` | lowercase: `round` \| `emerald` |
 | `items[].color` | lowercase: `red` \| `blue` \| `green` \| `yellow` \| `purple` \| `pink` \| `white` |
@@ -226,3 +228,6 @@ while True:
 
 A fuller version that also de-duplicates orders and prints teleop messages is in `Tools/mock_robot_server.py`
 (`python Tools/mock_robot_server.py`, option `--no-ack` to test the app's resend logic).
+
+
+**Reference robot server:** `RobotControl/robot_server.py` (our own, no bridge) speaks this protocol, picks by `items[].slot`, and also understands `{"type":"estop"}` / `{"type":"estop_reset"}`. See `RobotControl/README.md`.

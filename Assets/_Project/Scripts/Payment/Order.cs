@@ -17,6 +17,7 @@ namespace GemStore.Payment
         public GemColor color;
         public SettingType setting;   // LooseGem for a plain gem
         public MetalType metal;       // only meaningful when there is a setting
+        public int slot;              // cabinet slot 1..9 (Slot_0 = 1) = robot pick pose number; 0 = gem not in a cabinet
         public int price;             // gem + setting
     }
 
@@ -36,7 +37,7 @@ namespace GemStore.Payment
             foreach (JewelryConfig config in configs)
             {
                 GemData gem = config.gem;
-                order.items.Add(new OrderItem { gemId = gem.Id, shape = gem.Shape, color = gem.GemColor, setting = config.setting, metal = config.metal, price = config.TotalPrice });
+                order.items.Add(new OrderItem { gemId = gem.Id, shape = gem.Shape, color = gem.GemColor, setting = config.setting, metal = config.metal, slot = GemShowcase.SlotNumberOf(gem), price = config.TotalPrice });
             }
 
             return order;
@@ -47,7 +48,7 @@ namespace GemStore.Payment
             var order = new Order { orderId = orderId, total = total, time = time };
             foreach (GemData gem in gems)
             {
-                order.items.Add(new OrderItem { gemId = gem.Id, shape = gem.Shape, color = gem.GemColor, price = gem.Price });
+                order.items.Add(new OrderItem { gemId = gem.Id, shape = gem.Shape, color = gem.GemColor, slot = GemShowcase.SlotNumberOf(gem), price = gem.Price });
             }
 
             return order;
@@ -75,7 +76,8 @@ namespace GemStore.Payment
                   .Append("\",\"color\":\"").Append(item.color)
                   .Append("\",\"setting\":\"").Append(item.setting == SettingType.LooseGem ? "Loose" : item.setting.ToString())
                   .Append("\",\"metal\":\"").Append(item.setting == SettingType.LooseGem ? "None" : item.metal.ToString())
-                  .Append("\",\"price\":").Append(item.price.ToString(CultureInfo.InvariantCulture))
+                  .Append("\",\"slot\":").Append(item.slot.ToString(CultureInfo.InvariantCulture))
+                  .Append(",\"price\":").Append(item.price.ToString(CultureInfo.InvariantCulture))
                   .Append('}');
             }
 

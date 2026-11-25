@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GemStore.Showcase
@@ -22,6 +23,49 @@ namespace GemStore.Showcase
         private GemInfoPanel infoPanelPrefab;
 
         private readonly GemItem[] spawned = new GemItem[SlotCount];
+
+        private static readonly List<GemShowcase> Active = new List<GemShowcase>();
+
+        private void OnEnable()
+        {
+            Active.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            Active.Remove(this);
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            Active.Clear();
+        }
+
+        /// <summary>
+        /// The cabinet slot number (1..9) that holds <paramref name="gem"/>: Slot_0 = 1 ... Slot_8 = 9, which is the physical
+        /// pick pose number of the robot. 0 when the gem is not in any cabinet.
+        /// </summary>
+        public static int SlotNumberOf(GemData gem)
+        {
+            if (gem == null)
+            {
+                return 0;
+            }
+
+            foreach (GemShowcase showcase in Active)
+            {
+                for (int i = 0; i < showcase.gems.Length; i++)
+                {
+                    if (showcase.gems[i] == gem)
+                    {
+                        return i + 1;
+                    }
+                }
+            }
+
+            return 0;
+        }
 
         public GemItem GetItem(int slotIndex)
         {
@@ -80,6 +124,7 @@ namespace GemStore.Showcase
                 item.name = data.DisplayName;
                 item.ApplyData(data);
                 item.SetHomeSlot(slot);
+                item.SetSlotNumber(i + 1);
 
                 IdleSpin spin = item.GetComponent<IdleSpin>();
                 if (spin != null)

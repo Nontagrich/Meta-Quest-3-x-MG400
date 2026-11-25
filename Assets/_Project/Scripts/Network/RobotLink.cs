@@ -190,6 +190,12 @@ namespace GemStore.Network
                 port = RobotAddress.SavedPort;
             }
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+            if (host.StartsWith("127.") || host == "localhost")
+            {
+                Debug.LogWarning("[Robot] The robot address is " + host + ", which is the headset itself. Type the PC's LAN IP in Settings (or set it in RobotLinkConfig before building).");
+            }
+#endif
             Host = host;
             Port = port;
             Debug.Log($"[Robot] Connecting to {host}:{port}");

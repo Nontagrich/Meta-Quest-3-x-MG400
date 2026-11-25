@@ -29,3 +29,9 @@ sysinfo.txt
 # Editor-only test scratch
 /Assets/_Temp/
 /Assets/_Temp.meta
+
+# RobotControl runtime output
+/RobotControl/logs/
+__pycache__/
+*.pyc
+/External/**/logs/

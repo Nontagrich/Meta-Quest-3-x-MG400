@@ -20,6 +20,14 @@ namespace GemStore.Showcase
 
         public GemData Data => data;
 
+        /// <summary>Cabinet slot number 1..9 (Slot_0 = 1) = the robot's physical pick pose number; 0 if not set by a showcase.</summary>
+        public int SlotNumber { get; private set; }
+
+        public void SetSlotNumber(int slotNumber)
+        {
+            SlotNumber = slotNumber;
+        }
+
         /// <summary>The slot this gem came from, or null if it was not spawned by a showcase.</summary>
         public Transform HomeSlot => homeSlot;
 
